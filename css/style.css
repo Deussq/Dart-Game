@@ -1,0 +1,485 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* вертикальная колонка */
+  background-color: #1e1e2f;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.main-container {
+  flex: 1;                  /* занимает всё свободное место */
+  display: flex;
+  justify-content: center;  /* по горизонтали */
+  align-items: center;      /* по вертикали */  
+}
+
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #24243a;
+  border-bottom: 1px solid #3a3a55;
+  padding: 14px 20px;
+  display: flex;              /* ← ВАЖНО */
+  align-items: center;        /* ← по вертикали */
+  justify-content: flex-start;/* ← влево */
+  z-index: 1000;
+}
+
+.nav-title img {
+  width: 60px;
+  transition: 
+    transform 0.3s ease;   /* ← плавность */
+   cursor: pointer;
+}
+
+
+.nav-title img:hover {
+  transform: scale(1.15);
+}
+
+
+
+
+#start-screen {
+  background-color: #2a2a40;
+  padding: 45px;
+  border-radius: 12px;
+   
+}
+
+
+header h1 {
+  color: white;
+  text-align: center;
+}
+
+
+.setup-container {
+  display: flex;              
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 20px;
+ 
+}
+
+
+
+
+
+
+
+
+.mode-options {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.mode-label {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.mode-label input {
+  display: none; /* скрываем стандартные радио */
+}
+
+.mode-label span {
+  display: block;
+  padding: 10px 20px;
+  border: 2px solid #6d5bd0;
+  border-radius: 12px;
+  background-color: #2a2a40;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+/* hover эффект */
+.mode-label span:hover {
+  background-color: #5746b8;
+  border-color: #7b6fe6;
+  transform: scale(1.05);
+}
+/* выбранный режим */
+.mode-label input:checked + span {
+  background-color: #6d5bd0;
+  color: #ffffff;
+  border-color: #7b6fe6;
+  box-shadow: 0 4px 12px rgba(109, 91, 208, 0.4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#player-list input {
+  display: block;              
+  width: 85%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background: #2a2a40;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 14px;
+
+  background-color: #1e1e2f;
+  border: 1px solid #6d5bd0;
+  border-radius: 8px;
+
+  color: #ffffff;
+  font-size: 14px;
+
+  transition: border 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #7b6fe6;
+  box-shadow: 0 0 0 2px rgba(109, 91, 208, 0.3);
+}
+
+input::placeholder {
+  color: #c7c7d1;
+}
+
+
+
+
+button {
+  background-color: #6d5bd0;
+  border: none;
+  color: white;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #5746b8;
+}
+
+
+
+
+
+
+
+#start-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  margin-top: 2em;
+  padding: 14px 20px;
+
+  background: linear-gradient(135deg, #6d5bd0, #7b6fe6);
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: 
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+
+  box-shadow: 0 6px 18px rgba(109, 91, 208, 0.35);
+}
+
+#start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(109, 91, 208, 0.45);
+  background: linear-gradient(135deg, #7b6fe6, #6d5bd0);
+}
+
+#start-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(109, 91, 208, 0.3);
+}
+
+
+
+
+
+
+button, #add-player {
+  cursor: pointer;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+}
+
+/* Кнопка добавить игрока */
+#add-player {
+  padding: 6px 14px;
+  background-color: transparent;
+  border: 2px solid #6d5bd0;
+  color: white;
+  width: 80%;
+  max-width: 50px;
+  text-align: center;
+  
+  box-shadow: 0 4px 12px rgba(109, 91, 208, 0.25);
+}
+
+#add-player:hover {
+  background-color: #6d5bd0;
+  border-color: #7b6fe6;
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(109, 91, 208, 0.4);
+}
+
+
+
+
+/* Кнопка Game Rules */
+#game-rules button {
+  background-color: transparent;
+  border: 2px solid #6d5bd0;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  width: 70%;
+  max-width: 150px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(109, 91, 208, 0.25);
+ margin-left: 20px;
+}
+
+#game-rules button:hover {
+  background-color: #6d5bd0;
+  border-color: #7b6fe6;
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(109, 91, 208, 0.4);
+}
+
+
+
+
+
+
+
+.footer {
+  margin-top: 20px;
+  padding: 12px 20px;
+  text-align: center;
+  border-top: 1px solid #6d5bd0;  /* тонкая фиолетовая линия */
+  font-size: 12px;
+  color: #c7c7d1;                  /* светло-серый текст */
+  background-color: #2a2a40;       /* чуть темнее фона start-screen */
+  border-radius: 0 0 12px 12px;    /* закругление только снизу */
+}
+
+
+
+
+
+
+/* Для экранов меньше 480px */
+@media (max-width: 480px) {
+  #start-screen {
+    padding: 30px 20px;   /* меньше отступов */
+    width: 90%;           /* подгонка под экран */
+  }
+
+  .setup-container {
+    flex-direction: column; /* колонки станут сверху вниз */
+    gap: 20px;
+   
+  }
+
+  .mode-options {
+    flex-direction: column; /* режимы 301/501 будут друг под другом */
+    gap: 10px;
+    width: 50%;
+  
+  }
+#add-player {
+  padding: 5px 5px;
+}
+ #add-player, #game-rules button {
+    width: 30%;          /* кнопки растягиваются под экран */
+    max-width: none;      /* убираем ограничения */
+   
+  }
+#start-btn {
+  width: 100%;
+ 
+}
+  .footer {
+    font-size: 10px;      /* текст футера меньше */
+    padding: 8px 10px;
+  }
+}
+
+
+
+
+/* ----Zweite Seite---- */
+
+
+#game-screen {
+  flex: 1;                     /* занимает все свободное место */
+  display: flex;
+  flex-direction: column;      /* сверху вниз: таймер → карточки → клавиатура */
+  justify-content: space-between; /* таймер сверху, клавиатура внизу */
+  width: 100%;
+  max-width: 400px;            /* ограничение ширины на больших экранах */
+  margin: 0 auto;              /* центрируем по горизонтали */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.players-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;               /* растягиваем на оставшееся пространство */
+  overflow-y: auto;           /* если много игроков, будет скролл */
+}
+
+.player-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #2a2a40;
+  border-radius: 14px;
+  padding: 14px 18px;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+ 
+.player-card.active {
+  border: 2px solid #6d5bd0;
+  box-shadow: 0 0 20px rgba(109,91,208,0.6);
+}
+
+
+
+.player-left {
+  text-align: center;
+  min-width: 80px;
+}
+
+.player-score {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.player-name {
+  font-size: 14px;
+  color: #c7c7d1;
+}
+
+
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.throws-history {
+  display: flex;
+  gap: 6px;
+}
+
+.throw {
+  background: #1e1e2f;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.throw-sum {
+  font-size: 20px;
+  font-weight: 600;
+  color: #bbbbbb;
+}
+
+
+
+
+
+.player-right {
+  text-align: right;
+  min-width: 70px;
+}
+
+.player-average {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.player-darts {
+  font-size: 13px;
+  color: #c7c7d1;
+}
+
+
+
+/* Клавиатура для очков */
+.dart-keyboard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dart-keyboard button {
+  padding: 12px 0;
+  font-weight: 600;
+  border-radius: 12px;
+  background-color: #6d5bd0;
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.dart-keyboard button:hover {
+  background-color: #5746b8;
+  transform: scale(1.05);
+}
+
+.dart-keyboard .btn-cancel {
+  grid-column: span 2;
+  background-color: #b61b42f5;
+}
+
+.dart-keyboard .btn-d {
+   background-color: #e47b19f5;
+}
+
+.dart-keyboard .btn-t {
+   background-color: #ffbb00f5;
+}
