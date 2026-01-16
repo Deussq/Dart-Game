@@ -30,15 +30,15 @@
           <h3>Players</h3>
 
           <div id="player-list">
-            <input type="text" placeholder="Add player">
-           
+            <input type="text" placeholder="Add player"  pattern="[A-Za-zÄÖÜäöüßА-Яа-яЁё ]{1,20}">
+
             <button id="add-player">+</button>
           </div>
 
 
-<div id="players-display">
-  <!-- Тут будут отображаться карточки игроков -->
-</div>
+          <div id="players-display" class="players-column-players-display">
+            <!-- Тут будут отображаться карточки игроков -->
+          </div>
 
 
 
@@ -60,8 +60,10 @@
         </div>
 
       </div>
-
-      <button id="start-btn"><a href="game.html">Start Game</a></button>
+      <div id="player-error">
+        min. 1 Player
+      </div>
+      <button id="start-btn">Start Game</button>
     </div>
 
 
@@ -101,18 +103,22 @@
   <div id="rules-modal" class="hidden">
     <div class="hidden">
       <div class="rules-content">
-         <img src="img/log-rules.png" alt="">
-       <h3>Darts Rules (301 / 501)</h3>
-       <p><span>Starting Score:</span> Each player begins with 301 or 501 points, depending on the chosen game mode.</p>
-       <p><span>Scoring:</span> Players take turns throwing 3 darts per turn. The total points scored are subtracted from their remaining score.</p>
-       <p><span>Winning:</span> The goal is to reduce your score exactly to 0. If a player scores more than the remaining points, the turn is a “bust” and the score does not change.</p>
-       <p><span>Finishing:</span> The final dart must land in a double or bullseye to win the game.</p>
-       <p><span>Turns:</span> Players alternate turns until someone reaches exactly 0. The first player to do so wins.</p>
+        <img src="img/log-rules.png" alt="">
+        <h3>Darts Rules (301 / 501)</h3>
+        <p><span>Starting Score:</span> Each player begins with 301 or 501 points, depending on the chosen game mode.
+        </p>
+        <p><span>Scoring:</span> Players take turns throwing 3 darts per turn. The total points scored are subtracted
+          from their remaining score.</p>
+        <p><span>Winning:</span> The goal is to reduce your score exactly to 0. If a player scores more than the
+          remaining points, the turn is a “bust” and the score does not change.</p>
+        <p><span>Finishing:</span> The final dart must land in a double or bullseye to win the game.</p>
+        <p><span>Turns:</span> Players alternate turns until someone reaches exactly 0. The first player to do so wins.
+        </p>
         <button id="close-rules">Close</button>
       </div>
 
     </div>
-</div>
+  </div>
 
 
 
@@ -121,7 +127,7 @@
 
 
 
- <script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

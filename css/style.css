@@ -1,13 +1,23 @@
+:root {
+  --main-color-button: #6d5bd0;
+  --background-color: #1e1e2f;
+  --main-color: #ffffff;
+}
+
+
+
 body {
   min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
   /* вертикальная колонка */
-  background-color: #1e1e2f;
-  color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--main-color);
   font-family: 'Segoe UI', sans-serif;
 }
+
+
 
 .main-container {
   flex: 1;
@@ -61,7 +71,7 @@ body {
 
 
 header h1 {
-  color: white;
+  color: var(--main-color);
   text-align: center;
 }
 
@@ -100,10 +110,10 @@ header h1 {
 .mode-label span {
   display: block;
   padding: 10px 20px;
-  border: 2px solid #6d5bd0;
+  border: 2px solid var(--main-color-button);
   border-radius: 12px;
   background-color: #2a2a40;
-  color: #ffffff;
+  color: var(--main-color);
   font-weight: 600;
   font-size: 14px;
   text-align: center;
@@ -119,8 +129,8 @@ header h1 {
 
 /* выбранный режим */
 .mode-label input:checked+span {
-  background-color: #6d5bd0;
-  color: #ffffff;
+  background-color: var(--main-color-button);
+  color: var(--main-color);
   border-color: #7b6fe6;
   box-shadow: 0 4px 12px rgba(109, 91, 208, 0.4);
 }
@@ -128,8 +138,18 @@ header h1 {
 
 
 
+.players-column-players-display {
+  max-height: 150px;     /* примерно 2 карточки */
+  overflow-y: auto;
 
-
+  display: flex;
+  flex-direction: column;
+ scrollbar-width: none; /* Firefox */
+}
+#players-display::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 
 
 
@@ -145,11 +165,11 @@ input[type="text"] {
   width: 100%;
   padding: 12px 14px;
 
-  background-color: #1e1e2f;
-  border: 1px solid #6d5bd0;
+  background-color: var(--background-color);
+  border: 1px solid var(--main-color-button);
   border-radius: 8px;
 
-  color: #ffffff;
+  color: var(--main-color);
   font-size: 14px;
 
   transition: border 0.15s ease, box-shadow 0.15s ease;
@@ -169,9 +189,9 @@ input::placeholder {
 
 
 button {
-  background-color: #6d5bd0;
+  background-color: var(--main-color-button);
   border: none;
-  color: white;
+  color: var(--main-color);
   border-radius: 8px;
 }
 
@@ -182,10 +202,7 @@ button:hover {
 
 
 
-#start-btn a {
-  text-decoration: none;
-  color: white;
-}
+
 
 
 #start-btn {
@@ -196,8 +213,8 @@ button:hover {
   margin-top: 2em;
   padding: 14px 20px;
 
-  background: linear-gradient(135deg, #6d5bd0, #7b6fe6);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--main-color-button), #7b6fe6);
+   color: var(--main-color);
 
   font-size: 16px;
   font-weight: 600;
@@ -219,7 +236,7 @@ button:hover {
 #start-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 26px rgba(109, 91, 208, 0.45);
-  background: linear-gradient(135deg, #7b6fe6, #6d5bd0);
+  background: linear-gradient(135deg, #7b6fe6, var(--main-color-button));
 }
 
 #start-btn:active {
@@ -227,21 +244,30 @@ button:hover {
   box-shadow: 0 4px 12px rgba(109, 91, 208, 0.3);
 }
 
+#player-error {
+  color: #ff0004;
+  margin-top: 10px; 
+  display: none;
+  text-align: center;
+}
+
+
+
 
 
 
 .player-card {
-  display: flex;              /* чтобы имя и кнопка стояли в ряд */
-  align-items: center;        /* вертикальное выравнивание */
-  justify-content: space-between; /* имя слева, кнопка справа */
-  padding: 5px 10px;          /* внутренние отступы */
-  margin: 5px 0;              /* отступы между карточками */
-  width: 200px;               /* ширина карточки */
-  height: 40px;               /* высота карточки */
-  font-size: 14px;            /* размер текста */
-  background-color: #f0f0f0;  /* фон карточки */
-  border-radius: 5px;         /* скругление углов */
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* тень */
+  display: flex;          
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;     
+  margin: 5px 0;            
+  width: 200px;        
+  height: 40px;         
+  font-size: 14px;        
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
 }
 
 
@@ -257,12 +283,12 @@ button,
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
 }
 
-/* Кнопка добавить игрока */
+
 #add-player {
   padding: 6px 14px;
   background-color: transparent;
-  border: 2px solid #6d5bd0;
-  color: white;
+  border: 2px solid var(--main-color-button);
+ color: var(--main-color);
   width: 80%;
   max-width: 50px;
   text-align: center;
@@ -271,7 +297,7 @@ button,
 }
 
 #add-player:hover {
-  background-color: #6d5bd0;
+  background-color: var(--main-color-button);
   border-color: #7b6fe6;
   transform: scale(1.1);
   box-shadow: 0 6px 18px rgba(109, 91, 208, 0.4);
@@ -280,11 +306,11 @@ button,
 
 
 
-/* Кнопка Game Rules */
+
 #game-rules button {
   background-color: transparent;
-  border: 2px solid #6d5bd0;
-  color: white;
+  border: 2px solid var(--main-color-button);
+ color: var(--main-color);
   padding: 6px 12px;
   border-radius: 12px;
   width: 70%;
@@ -295,7 +321,7 @@ button,
 }
 
 #game-rules button:hover {
-  background-color: #6d5bd0;
+  background-color: var(--main-color-button);
   border-color: #7b6fe6;
   transform: scale(1.1);
   box-shadow: 0 6px 18px rgba(109, 91, 208, 0.4);
@@ -311,15 +337,11 @@ button,
   margin-top: 20px;
   padding: 12px 20px;
   text-align: center;
-  border-top: 1px solid #6d5bd0;
-  /* тонкая фиолетовая линия */
+  border-top: 1px solid var(--main-color-button);
   font-size: 12px;
   color: #c7c7d1;
-  /* светло-серый текст */
   background-color: #2a2a40;
-  /* чуть темнее фона start-screen */
   border-radius: 0 0 12px 12px;
-  /* закругление только снизу */
 }
 
 
@@ -327,25 +349,21 @@ button,
 
 
 
-/* Для экранов меньше 480px */
+
 @media (max-width: 480px) {
   #start-screen {
     padding: 30px 20px;
-    /* меньше отступов */
-    width: 90%;
-    /* подгонка под экран */
+width: 90%;
   }
 
   .setup-container {
     flex-direction: column;
-    /* колонки станут сверху вниз */
     gap: 20px;
 
   }
 
   .mode-options {
     flex-direction: column;
-    /* режимы 301/501 будут друг под другом */
     gap: 10px;
     width: 50%;
 
@@ -358,10 +376,7 @@ button,
   #add-player,
   #game-rules button {
     width: 30%;
-    /* кнопки растягиваются под экран */
     max-width: none;
-    /* убираем ограничения */
-
   }
 
   #start-btn {
@@ -371,7 +386,6 @@ button,
 
   .footer {
     font-size: 10px;
-    /* текст футера меньше */
     padding: 8px 10px;
   }
 
@@ -403,17 +417,17 @@ button,
 
 #start-screen {
   flex: 1;
-  /* занимает все свободное место */
+
   display: flex;
   flex-direction: column;
-  /* сверху вниз: таймер → карточки → клавиатура */
+
   justify-content: space-between;
-  /* таймер сверху, клавиатура внизу */
+
   width: 100%;
   max-width: 400px;
-  /* ограничение ширины на больших экранах */
+
   margin: 0 auto;
-  /* центрируем по горизонтали */
+ 
   padding: 20px;
   box-sizing: border-box;
 }
@@ -421,56 +435,57 @@ button,
 
 .players-column {
   flex-grow: 1;
-  /* растягиваем на оставшееся пространство */
+
 
   display: flex;
   flex-direction: column;
+  
   gap: 12px;
 
-  max-height: calc(3 * 110px + 3 * 12px);
-  /* 4 карточки + отступы между ними */
+  max-height: calc(3 * 150px + 3 * 12px);
 
-  overflow-y: auto;
 
-  /* Скрыть скроллбар в разных браузерах */
+  overflow: scroll;
+
+
+
   scrollbar-width: thin;
   /* Firefox */
   scrollbar-color: transparent transparent;
   /* Firefox */
 }
 
-/* Для Chrome, Edge, Safari */
+/* Chrome, Edge, Safari */
 .players-column::-webkit-scrollbar {
   width: 0;
-  /* убираем сам скроллбар */
+ 
   background: transparent;
-  /* фон скроллбара */
+  
 }
 
-.player-card {
+.player-card-game {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   background: #2a2a40;
   border-radius: 14px;
-  padding: 14px 18px;
-
-  /* Мягкая закругленная тень */
+  padding: 6px 8px;
+margin-left: 0.8em;
+margin-bottom: 0.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
     0 4px 16px rgba(0, 0, 0, 0.1);
+width: 90%;
 
-
-  height: 110px;
+  height: 130px;
   flex-shrink: 0;
-  /* ← ВАЖНО: карточки не сжимаются */
+  
   overflow: hidden;
-  /* ← тень будет аккуратнее */
 }
 
 
-.player-card.active {
-  border: 2px solid #6d5bd0;
+.player-card-game.active {
+  border: 2px solid var(--main-color-button);
   box-shadow: 0 0 20px rgba(109, 91, 208, 0.6);
 }
 
@@ -497,6 +512,7 @@ button,
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  padding-left: 0.5em;
 }
 
 .throws-history {
@@ -505,7 +521,7 @@ button,
 }
 
 .throw {
-  background: #1e1e2f;
+  background: var(--background-color);
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 14px;
@@ -526,6 +542,7 @@ button,
 .player-right {
   text-align: right;
   min-width: 70px;
+ padding-right: 40px;
 }
 
 .player-average {
@@ -534,44 +551,46 @@ button,
 }
 
 .player-darts {
+  margin-top: 4px;
   font-size: 13px;
   color: #c7c7d1;
 }
 
 
 
-/* Клавиатура для очков */
+
 .dart-keyboard {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dart-keyboard button {
   padding: 12px 0;
   font-weight: 600;
   border-radius: 12px;
-  background-color: #6d5bd0;
-  color: white;
+  background-color: var(--main-color-button);
+   color: var(--main-color);
   border: none;
   transition: all 0.2s ease;
 }
 
-/* Hover для всех кнопок в клавиатуре */
+
 .dart-keyboard button:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 18px rgba(109, 91, 208, 0.4);
 }
 
-/* Фон только для кнопок без класса no-hover */
+
 .dart-keyboard button:hover:not(.no-hover) {
   background-color: #5746b8;
 }
 
 
 .dart-keyboard .btn-cancel {
-  grid-column: span 2;
+  
   background-color: #b61b42f5;
 }
 
@@ -583,7 +602,9 @@ button,
   background-color: #ffbb00f5;
 }
 
-
+.dart-keyboard .btn-bull {
+background-color: #8a3a0b;
+}
 
 
 
@@ -595,13 +616,12 @@ button,
 
   #rules-modal img {
     width: 100px;
-  border-radius: 100%; /* делает изображение круглым */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* лёгкая тень */
+  border-radius: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
    transition:
     transform 0.3s ease;
-  /* ← плавность */
-  cursor: pointer;
 
+  cursor: pointer;
   }
 
 #rules-modal img:hover {
@@ -616,7 +636,7 @@ button,
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.6); /* затемнение фона */
+  background-color: rgba(0,0,0,0.6); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -627,7 +647,7 @@ button,
   background-color: #2a2a40;
   padding: 20px 30px;
   border-radius: 12px;
-  color: white;
+  color: var(--main-color);
   max-width: 400px;
   width: 90%;
   text-align: center;
@@ -638,8 +658,8 @@ button,
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  background-color: #6d5bd0;
-  color: white;
+  background-color: var(--main-color-button);
+   color: var(--main-color);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -661,9 +681,9 @@ button,
 
 
 .player-card {
-  height: 40px;       /* например, меньше, чем 110px */
-  padding: 4px 8px;  /* уменьшенные отступы */
-  font-size: 14px;    /* можно уменьшить текст */
+  height: 40px;     
+  padding: 4px 16px;  
+  font-size: 14px;    
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   background: #2a2a40;
@@ -672,6 +692,7 @@ button,
   align-items: center;
   justify-content: space-between;
   margin-top: 1em;
+  margin-left: 0.2em;
 }
 
 .player-card button {
@@ -682,5 +703,7 @@ button,
 .player-card button:hover {
 background-color: rgb(245, 27, 27);
 }
-
+.player-card button:active {
+ background-color: rgb(245, 27, 27);
+}
 

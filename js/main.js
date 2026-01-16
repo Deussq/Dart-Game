@@ -23,9 +23,16 @@ const addPlayerBtn = document.getElementById("add-player");
 const playerInputs = document.querySelectorAll("#player-list input");
 const playersDisplay = document.getElementById("players-display");
 const startBtn = document.getElementById("start-btn");
+const errorMsg = document.getElementById("player-error");
 
 //  ОДИН массив, без дублей
 let players = JSON.parse(localStorage.getItem("players")) || [];
+
+
+
+
+
+
 
 
 // ===== RENDER =====
@@ -91,11 +98,39 @@ addPlayerBtn.addEventListener("click", () => {
 });
 
 
+
+function saveGameMode() {
+  const selectedMode = document.querySelector('input[name="mode"]:checked');
+  localStorage.setItem("gameMode", selectedMode.value);
+}
+
+
 // ===== START GAME =====
 startBtn.addEventListener("click", () => {
+  if (players.length === 0) {
+    if (errorMsg) {
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Min. 1 Player!";
+    }
+    return;
+  }
+  if (errorMsg) errorMsg.style.display = "none";
+
   savePlayers();
+  saveGameMode();
+  window.location.href = "game.html";
 });
+
+
+
+
 
 
 // ===== INIT =====
 renderPlayers();
+
+
+
+
+
+
