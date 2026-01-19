@@ -50,7 +50,8 @@ function renderPlayers() {
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "—";
     removeBtn.style.marginLeft = "10px";
-
+ removeBtn.style.width = "30%"
+  removeBtn.style.padding = "7px 10px"
     removeBtn.addEventListener("click", () => {
       removePlayer(index);
     });
@@ -82,7 +83,7 @@ addPlayerBtn.addEventListener("click", () => {
 
     if (name) {
       players.push({
-        id: Date.now(),
+        id: Math.floor(Math.random()),
         name: name,
         score: 301,
         darts: 0,

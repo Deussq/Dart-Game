@@ -66,7 +66,9 @@ body {
   background-color: #2a2a40;
   padding: 45px;
   border-radius: 12px;
-
+  width: 100%;
+  max-width: 600px; 
+  margin: 0 auto;
 }
 
 
@@ -81,20 +83,24 @@ header h1 {
   justify-content: space-between;
   gap: 40px;
   margin-bottom: 20px;
-
+  flex-direction: column;
+  align-items: center;   
 }
 
 
 
 
 
-
+ .main-container h3 {
+text-align: center;
+}
 
 
 .mode-options {
   display: flex;
   gap: 16px;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .mode-label {
@@ -118,6 +124,7 @@ header h1 {
   font-size: 14px;
   text-align: center;
   transition: all 0.25s ease;
+  width: 65px;
 }
 
 /* hover эффект */
@@ -139,31 +146,44 @@ header h1 {
 
 
 .players-column-players-display {
-  max-height: 150px;     /* примерно 2 карточки */
-  overflow-y: auto;
-
+  max-height: 140px;
+  overflow-y: auto; 
   display: flex;
   flex-direction: column;
- scrollbar-width: none; /* Firefox */
-}
-#players-display::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  gap: 3px;
+  align-items: center;
 }
 
 
+.players-column-players-display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.players-column-players-display::-webkit-scrollbar-thumb {
+  background-color: rgba(109, 91, 208, 0.5);
+  border-radius: 3px;
+}
+
+#player-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 #player-list input {
   display: block;
-  width: 85%;
   padding: 8px;
   margin-bottom: 10px;
   background: #2a2a40;
+  flex: 1;
 }
+
+
+
 
 input[type="text"] {
   width: 100%;
-  padding: 12px 14px;
+  padding: 15px 20px;
 
   background-color: var(--background-color);
   border: 1px solid var(--main-color-button);
@@ -208,7 +228,7 @@ button:hover {
 #start-btn {
   display: block;
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   margin: 0 auto;
   margin-top: 2em;
   padding: 14px 20px;
@@ -271,8 +291,6 @@ button:hover {
 }
 
 
-
-
 button,
 #add-player {
   cursor: pointer;
@@ -292,8 +310,8 @@ button,
   width: 80%;
   max-width: 50px;
   text-align: center;
-
   box-shadow: 0 4px 12px rgba(109, 91, 208, 0.25);
+margin-bottom: 0.7em;
 }
 
 #add-player:hover {
@@ -415,63 +433,50 @@ width: 90%;
 /* ----Zweite Seite---- */
 
 
-#start-screen {
-  flex: 1;
-
+#start-screen-game {
+  width: 90%;               /* адаптивно */
+  max-width: 700px;         /* ограничение по ширине */
+  margin: 50px auto;        /* центр по горизонтали, отступ сверху */
+  padding: 40px 20px;
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
-
-  justify-content: space-between;
-
-  width: 100%;
-  max-width: 400px;
-
-  margin: 0 auto;
- 
-  padding: 20px;
+  gap: 20px;                /* расстояние между секциями */
+  background-color: #2a2a40;
+  border-radius: 12px;
   box-sizing: border-box;
+
 }
+
 
 
 .players-column {
-  flex-grow: 1;
-
-
   display: flex;
   flex-direction: column;
-  
-  gap: 12px;
-
-  max-height: calc(3 * 150px + 3 * 12px);
-
-
-  overflow: scroll;
-
-
-
-  scrollbar-width: thin;
-  /* Firefox */
-  scrollbar-color: transparent transparent;
-  /* Firefox */
+  gap: 12px;            
+  max-height: 414px; 
+ overflow-y: auto;
+  padding-right: 5px;  
 }
 
-/* Chrome, Edge, Safari */
+/* Стили для скролла (красиво) */
 .players-column::-webkit-scrollbar {
-  width: 0;
- 
-  background: transparent;
-  
+  width: 6px;
+}
+
+.players-column::-webkit-scrollbar-thumb {
+  background-color: rgba(109, 91, 208, 0.5);
+  border-radius: 3px;
 }
 
 .player-card-game {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   background: #2a2a40;
   border-radius: 14px;
-  padding: 6px 8px;
-margin-left: 0.8em;
+  padding: 8px 25px;
+margin-left: 10px;
 margin-bottom: 0.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
     0 4px 16px rgba(0, 0, 0, 0.1);
@@ -563,8 +568,9 @@ width: 90%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+   margin-top: auto;  
+padding-top: auto;
+ 
 }
 
 .dart-keyboard button {
@@ -575,6 +581,7 @@ width: 90%;
    color: var(--main-color);
   border: none;
   transition: all 0.2s ease;
+
 }
 
 
@@ -707,3 +714,32 @@ background-color: rgb(245, 27, 27);
  background-color: rgb(245, 27, 27);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.throws-history {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;  /* если много бросков — перенос на следующую строку */
+}
+
+.throw {
+  background: #5746b8;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 24px;
+  text-align: center;
+}
