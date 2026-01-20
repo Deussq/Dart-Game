@@ -377,7 +377,6 @@ width: 90%;
   .setup-container {
     flex-direction: column;
     gap: 20px;
-
   }
 
   .mode-options {
@@ -386,6 +385,12 @@ width: 90%;
     width: 50%;
 
   }
+
+.mode-section span {
+  margin-left: 60px;
+
+}
+
 
   #add-player {
     padding: 5px 5px;
@@ -416,7 +421,7 @@ width: 90%;
     
   }
 
-  
+
 
 
 .hidden {
@@ -713,12 +718,6 @@ background-color: rgb(245, 27, 27);
 .player-card button:active {
  background-color: rgb(245, 27, 27);
 }
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,3 @@
-// ===== RULES MODAL =====
 const openRulesBtn = document.getElementById("open-rules-btn");
 const rulesModal = document.getElementById("rules-modal");
 const closeRulesBtn = document.getElementById("close-rules");
@@ -18,24 +17,17 @@ rulesModal.addEventListener("click", (e) => {
 });
 
 
-// ===== PLAYERS =====
+
 const addPlayerBtn = document.getElementById("add-player");
 const playerInputs = document.querySelectorAll("#player-list input");
 const playersDisplay = document.getElementById("players-display");
 const startBtn = document.getElementById("start-btn");
 const errorMsg = document.getElementById("player-error");
 
-//  ОДИН массив, без дублей
+
 let players = JSON.parse(localStorage.getItem("players")) || [];
 
 
-
-
-
-
-
-
-// ===== RENDER =====
 function renderPlayers() {
   playersDisplay.innerHTML = "";
 
@@ -50,7 +42,7 @@ function renderPlayers() {
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "—";
     removeBtn.style.marginLeft = "10px";
- removeBtn.style.width = "30%"
+ removeBtn.style.width = "20%"
   removeBtn.style.padding = "7px 10px"
     removeBtn.addEventListener("click", () => {
       removePlayer(index);
@@ -62,13 +54,12 @@ function renderPlayers() {
 }
 
 
-// ===== SAVE =====
 function savePlayers() {
   localStorage.setItem("players", JSON.stringify(players));
 }
 
 
-// ===== REMOVE =====
+
 function removePlayer(index) {
   players.splice(index, 1);
   savePlayers();
@@ -76,27 +67,44 @@ function removePlayer(index) {
 }
 
 
-// ===== ADD PLAYER =====
+
+
 addPlayerBtn.addEventListener("click", () => {
   playerInputs.forEach(input => {
-    const name = input.value.trim();
+    let name = input.value.trim();
 
-    if (name) {
-      players.push({
-        id: Math.floor(Math.random()),
-        name: name,
-        score: 301,
-        darts: 0,
-        throws: []
-      });
+   
+    name = name.replace(/[^A-Za-zÄÖÜäöüßА-Яа-яЁё ]/g, "");
+
+  
+    if (name.length > 10) {
+      name = name.slice(0, 10);
     }
+
+   
+    if (name.length === 0) {
+      alert("Name cannot be empty and must contain only letters!");
+      return;
+    }
+
+    players.push({
+      id: Math.floor(Math.random() * 1000000),
+      name: name,
+      score: 301,
+      darts: 0,
+      throws: []
+    });
 
     input.value = "";
   });
 
-  savePlayers();
+  localStorage.setItem("players", JSON.stringify(players));
+savePlayers();
   renderPlayers();
+
+
 });
+
 
 
 
@@ -106,7 +114,7 @@ function saveGameMode() {
 }
 
 
-// ===== START GAME =====
+
 startBtn.addEventListener("click", () => {
   if (players.length === 0) {
     if (errorMsg) {
@@ -123,15 +131,4 @@ startBtn.addEventListener("click", () => {
 });
 
 
-
-
-
-
-// ===== INIT =====
 renderPlayers();
-
-
-
-
-
-
