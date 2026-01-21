@@ -2,6 +2,11 @@ const players = JSON.parse(localStorage.getItem("players")) || [];
 const gamePlayersContainer = document.getElementById("game-players");
 const gameMode = Number(localStorage.getItem("gameMode")) || 301;
 let turnStartScore = 0;
+let switchTimeout = null;
+
+
+
+
 
 
 
@@ -63,14 +68,16 @@ let currentThrowSum = 0;
 let dartsThrown = 0;
 let multiplier = 1;
 
-const dartButtons = document.querySelectorAll(".dart-keyboard button");
 
+
+
+const dartButtons = document.querySelectorAll(".dart-keyboard button");
 dartButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const text = btn.textContent;
 
-    if (text === "Cancel") {
-      resetThrow();
+    if (text === "Undo") {
+      undoLastThrow();
       return;
     }
 
@@ -96,6 +103,8 @@ dartButtons.forEach(btn => {
   });
 });
 
+
+
 function addThrow(value) {
   const activeCard = document.querySelector(".player-card-game.active");
   if (!activeCard || dartsThrown >= 3) return;
@@ -105,7 +114,7 @@ function addThrow(value) {
 
   if (!player.throws) player.throws = [];
 
-  // стартовый счёт хода
+
   if (dartsThrown === 0) {
     turnStartScore = player.score;
   }
@@ -115,10 +124,9 @@ function addThrow(value) {
   dartsThrown++;
   multiplier = 1;
 
-  // считаем временный счёт
+
   const newScore = player.score - throwValue;
 
-  //  BUST 
   if (newScore < 0) {
     alert("Bust!!");
     player.score = turnStartScore;
@@ -128,21 +136,25 @@ function addThrow(value) {
     return;
   }
 
-  //  применяем счёт
+
   player.score = newScore;
   activeCard.querySelector(".player-score").textContent = player.score;
 
   updateThrowUI(player, activeCard);
 
-  //  победа
-  if (player.score === 0) {
-    alert(player.name + " wins the game!! 🎉");
-    return;
-  }
 
-  // конец хода
+ if (player.score === 0) {
+  showEndGameModal();
+  return;
+}
+
+
+
   if (dartsThrown === 3) {
-    nextPlayer();
+    switchTimeout = setTimeout(() => {
+      nextPlayer();
+      switchTimeout = null;
+    }, 1500);
   }
 }
 
@@ -165,6 +177,8 @@ function resetThrow() {
   updateThrowUI(player, activeCard);
 }
 
+
+
 function updateThrowUI(player, card) {
   const throws = card.querySelectorAll(".throw");
 
@@ -176,17 +190,17 @@ function updateThrowUI(player, card) {
 
 
   throws.forEach((span, i) => {
-  if (i < dartsThrown) {
-    span.textContent = player.throws[startIndex + i];
-  }
-});
+    if (i < dartsThrown) {
+      span.textContent = player.throws[startIndex + i];
+    }
+  });
 
 
 
   let sum = 0;
-player.throws.slice(startIndex, startIndex + dartsThrown).forEach(throwValue => {
-  sum += throwValue;
-});
+  player.throws.slice(startIndex, startIndex + dartsThrown).forEach(throwValue => {
+    sum += throwValue;
+  });
 
 
   card.querySelector(".throw-sum").textContent = sum || 0;
@@ -197,30 +211,108 @@ player.throws.slice(startIndex, startIndex + dartsThrown).forEach(throwValue => 
 
 
 function nextPlayer() {
-  //  Найти текущего активного игрока
+
   const activeCard = document.querySelector(".player-card-game.active");
   if (!activeCard) return;
 
-  // Узнать индекс текущего игрока
+
   const playerIndex = Array.from(gamePlayersContainer.children).indexOf(activeCard);
 
-  // Снять активный класс
+
   activeCard.classList.remove("active");
 
-  // Найти следующего игрока по кругу
+
   const nextIndex = (playerIndex + 1) % players.length;
   const nextCard = gamePlayersContainer.children[nextIndex];
   nextCard.classList.add("active");
 
-  // Сбросить счётчик бросков и множитель
+
   dartsThrown = 0;
   multiplier = 1;
 
-  // Очистить квадраты бросков для нового хода
+
   const throws = nextCard.querySelectorAll(".throw");
   throws.forEach(span => span.textContent = "-");
   nextCard.querySelector(".throw-sum").textContent = 0;
 }
+
+
+
+
+function prevPlayer() {
+  const cards = gamePlayersContainer.children;
+  let currentIndex = [...cards].findIndex(card =>
+    card.classList.contains("active")
+  );
+  cards[currentIndex].classList.remove("active");
+
+  const prevIndex = (currentIndex - 1 + cards.length) % cards.length;
+
+  cards[prevIndex].classList.add("active");
+  dartsThrown = 3;
+}
+
+
+
+
+
+function undoLastThrow() {
+
+  if (switchTimeout) {
+    clearTimeout(switchTimeout);
+    switchTimeout = null;
+  }
+
+  const activeCard = document.querySelector(".player-card-game.active");
+  if (!activeCard) return;
+
+  const playerIndex = Array.from(gamePlayersContainer.children).indexOf(activeCard);
+  const player = players[playerIndex];
+
+  if (!player.throws || player.throws.length === 0) return;
+
+
+  if (dartsThrown === 0) {
+    prevPlayer();
+    return;
+  }
+
+
+  const lastThrow = player.throws.pop();
+  player.score += lastThrow;
+  dartsThrown--;
+
+  activeCard.querySelector(".player-score").textContent = player.score;
+  updateThrowUI(player, activeCard);
+}
+
+document.getElementById("play-again").addEventListener("click", () => {
+  location.reload(); // просто перезагружаем страницу для новой игры
+});
+
+document.getElementById("return-menu").addEventListener("click", () => {
+  window.location.href = "index.html"; // возвращаемся в меню
+});
+
+
+
+function showEndGameModal() {
+  const modal = document.getElementById("end-game-modal");
+  const standings = document.getElementById("final-standings");
+
+  // Сортируем игроков по очкам (меньше = лучше)
+  const sortedPlayers = [...players].sort((a,b) => a.score - b.score);
+
+  standings.innerHTML = ""; // чистим
+  sortedPlayers.forEach((player, index) => {
+    const div = document.createElement("div");
+    div.textContent = `${index + 1}. ${player.name} — ${player.score} pts`;
+    standings.appendChild(div);
+  });
+
+  modal.classList.remove("hidden");
+}
+
 
 
 

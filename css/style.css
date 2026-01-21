@@ -51,7 +51,8 @@ body {
 .nav-title img {
   width: 60px;
   transition:
-    transform 0.3s ease;/* ← плавность */
+    transform 0.3s ease;
+  /* ← плавность */
   cursor: pointer;
 }
 
@@ -67,7 +68,7 @@ body {
   padding: 45px;
   border-radius: 12px;
   width: 100%;
-  max-width: 600px; 
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -84,15 +85,15 @@ header h1 {
   gap: 40px;
   margin-bottom: 20px;
   flex-direction: column;
-  align-items: center;   
+  align-items: center;
 }
 
 
 
 
 
- .main-container h3 {
-text-align: center;
+.main-container h3 {
+  text-align: center;
 }
 
 
@@ -147,7 +148,7 @@ text-align: center;
 
 .players-column-players-display {
   max-height: 140px;
-  overflow-y: auto; 
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -234,7 +235,7 @@ button:hover {
   padding: 14px 20px;
 
   background: linear-gradient(135deg, var(--main-color-button), #7b6fe6);
-   color: var(--main-color);
+  color: var(--main-color);
 
   font-size: 16px;
   font-weight: 600;
@@ -266,7 +267,7 @@ button:hover {
 
 #player-error {
   color: #ff0004;
-  margin-top: 10px; 
+  margin-top: 10px;
   display: none;
   text-align: center;
 }
@@ -277,17 +278,17 @@ button:hover {
 
 
 .player-card {
-  display: flex;          
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px;     
-  margin: 5px 0;            
-  width: 200px;        
-  height: 40px;         
-  font-size: 14px;        
+  padding: 5px 10px;
+  margin: 5px 0;
+  width: 200px;
+  height: 40px;
+  font-size: 14px;
   background-color: #f0f0f0;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -306,12 +307,12 @@ button,
   padding: 6px 14px;
   background-color: transparent;
   border: 2px solid var(--main-color-button);
- color: var(--main-color);
+  color: var(--main-color);
   width: 80%;
   max-width: 50px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(109, 91, 208, 0.25);
-margin-bottom: 0.7em;
+  margin-bottom: 0.7em;
 }
 
 #add-player:hover {
@@ -328,7 +329,7 @@ margin-bottom: 0.7em;
 #game-rules button {
   background-color: transparent;
   border: 2px solid var(--main-color-button);
- color: var(--main-color);
+  color: var(--main-color);
   padding: 6px 12px;
   border-radius: 12px;
   width: 70%;
@@ -368,69 +369,7 @@ margin-bottom: 0.7em;
 
 
 
-@media (max-width: 480px) {
-  #start-screen {
-    padding: 30px 20px;
-width: 90%;
-  }
 
-  .setup-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .mode-options {
-    flex-direction: column;
-    gap: 10px;
-    width: 50%;
-
-  }
-
-.mode-section span {
-  margin-left: 60px;
-
-}
-
-
-  #add-player {
-    padding: 5px 5px;
-  }
-
-  #add-player,
-  #game-rules button {
-    width: 30%;
-    max-width: none;
-  }
-
-  #start-btn {
-    width: 100%;
-
-  }
-
-  .footer {
-    font-size: 10px;
-    padding: 8px 10px;
-  }
-
-  .players-column {
-    max-height: 55vh;
-  }
-
-   .player-card {
-    height: 10px;
-    
-  }
-
-
-
-
-.hidden {
-  max-width: 80%;
-  padding-right: 20px;
-}
-
-
-}
 
 
 
@@ -439,14 +378,18 @@ width: 90%;
 
 
 #start-screen-game {
-  width: 90%;               /* адаптивно */
-  max-width: 700px;         /* ограничение по ширине */
-  margin: 50px auto;        /* центр по горизонтали, отступ сверху */
+  width: 90%;
+  /* адаптивно */
+  max-width: 700px;
+  /* ограничение по ширине */
+  margin: 50px auto;
+  /* центр по горизонтали, отступ сверху */
   padding: 40px 20px;
   margin-top: 130px;
   display: flex;
   flex-direction: column;
-  gap: 20px;                /* расстояние между секциями */
+  gap: 20px;
+  /* расстояние между секциями */
   background-color: #2a2a40;
   border-radius: 12px;
   box-sizing: border-box;
@@ -458,10 +401,10 @@ width: 90%;
 .players-column {
   display: flex;
   flex-direction: column;
-  gap: 12px;            
-  max-height: 414px; 
- overflow-y: auto;
-  padding-right: 5px;  
+  gap: 12px;
+  max-height: 414px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 /* Стили для скролла (красиво) */
@@ -481,15 +424,15 @@ width: 90%;
   background: #2a2a40;
   border-radius: 14px;
   padding: 8px 25px;
-margin-left: 10px;
-margin-bottom: 0.5em;
+  margin-left: 10px;
+  margin-bottom: 0.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
     0 4px 16px rgba(0, 0, 0, 0.1);
-width: 90%;
+  width: 90%;
 
   height: 130px;
   flex-shrink: 0;
-  
+
   overflow: hidden;
 }
 
@@ -550,9 +493,12 @@ width: 90%;
 
 
 .player-right {
+  display: flex;
   text-align: right;
   min-width: 70px;
- padding-right: 40px;
+  padding-right: 40px;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .player-average {
@@ -561,7 +507,7 @@ width: 90%;
 }
 
 .player-darts {
-  margin-top: 4px;
+ 
   font-size: 13px;
   color: #c7c7d1;
 }
@@ -573,9 +519,9 @@ width: 90%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-   margin-top: auto;  
-padding-top: auto;
- 
+  margin-top: auto;
+  padding-top: auto;
+
 }
 
 .dart-keyboard button {
@@ -583,7 +529,7 @@ padding-top: auto;
   font-weight: 600;
   border-radius: 12px;
   background-color: var(--main-color-button);
-   color: var(--main-color);
+  color: var(--main-color);
   border: none;
   transition: all 0.2s ease;
 
@@ -602,7 +548,7 @@ padding-top: auto;
 
 
 .dart-keyboard .btn-cancel {
-  
+
   background-color: #b61b42f5;
 }
 
@@ -615,7 +561,7 @@ padding-top: auto;
 }
 
 .dart-keyboard .btn-bull {
-background-color: #8a3a0b;
+  background-color: #8a3a0b;
 }
 
 
@@ -626,18 +572,18 @@ background-color: #8a3a0b;
   display: none;
 }
 
-  #rules-modal img {
-    width: 100px;
-  border-radius: 100%; 
+#rules-modal img {
+  width: 100px;
+  border-radius: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-   transition:
+  transition:
     transform 0.3s ease;
 
   cursor: pointer;
-  }
+}
 
 #rules-modal img:hover {
-   transform: scale(1.15);
+  transform: scale(1.15);
 }
 
 
@@ -648,7 +594,7 @@ background-color: #8a3a0b;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.6); 
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -671,7 +617,7 @@ background-color: #8a3a0b;
   border: none;
   border-radius: 10px;
   background-color: var(--main-color-button);
-   color: var(--main-color);
+  color: var(--main-color);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -681,23 +627,23 @@ background-color: #8a3a0b;
   transform: scale(1.05);
 }
 
- 
+
 
 
 
 
 #rules-modal span {
-   font-weight: 700; 
+  font-weight: 700;
 }
 
 
 
 .player-card {
-  height: 40px;     
-  padding: 4px 16px;  
-  font-size: 14px;    
+  height: 40px;
+  padding: 4px 16px;
+  font-size: 14px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   background: #2a2a40;
   flex-shrink: 0;
   display: flex;
@@ -709,19 +655,16 @@ background-color: #8a3a0b;
 
 .player-card button {
   width: 25%;
- 
+
 }
 
 .player-card button:hover {
-background-color: rgb(245, 27, 27);
+  background-color: rgb(245, 27, 27);
 }
+
 .player-card button:active {
- background-color: rgb(245, 27, 27);
+  background-color: rgb(245, 27, 27);
 }
-
-
-
-
 
 
 
@@ -730,7 +673,8 @@ background-color: rgb(245, 27, 27);
 .throws-history {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;  /* если много бросков — перенос на следующую строку */
+  flex-wrap: wrap;
+  /* если много бросков — перенос на следующую строку */
 }
 
 .throw {
@@ -741,4 +685,177 @@ background-color: rgb(245, 27, 27);
   font-size: 14px;
   min-width: 24px;
   text-align: center;
+}
+
+
+
+
+
+
+
+#end-game-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#end-game-modal .rules-content {
+  background-color: #2a2a40;
+  padding: 20px 30px;
+  border-radius: 12px;
+  color: var(--main-color);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+#end-game-modal button {
+  margin: 10px 5px 0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: var(--main-color-button);
+  border: none;
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+
+
+
+
+#end-game-modal.hidden {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 480px) {
+  
+  #start-screen {
+    padding: 30px 20px;
+    width: 90%;
+  }
+
+.player-card {
+  padding: 17px;
+}
+
+  .setup-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mode-options {
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+
+  }
+
+  .mode-section span {
+    margin-left: 60px;
+
+  }
+
+
+  #add-player {
+    padding: 5px 5px;
+  }
+
+  #add-player,
+  #game-rules button {
+    width: 30%;
+    max-width: none;
+  }
+
+  #start-btn {
+    width: 100%;
+
+  }
+
+
+
+
+
+  .players-column {
+   padding-left: 10px;
+  }
+
+
+   .player-card-game {
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    padding: 10px;
+    gap: 10px;
+    height: auto;
+  }
+
+  .player-left,
+  .player-center {
+    width: 100%;
+    text-align: center;
+  }
+
+  .player-right {
+    flex-direction: row;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+  }
+
+
+
+
+  .throws-history {
+    justify-content: center;
+  }
+
+
+  .footer {
+    font-size: 10px;
+    padding: 8px 10px;
+  }
+
+  .players-column {
+    max-height: 55vh;
+  }
+
+  .player-card {
+    height: 10px;
+
+  }
+
+
+
+
+  .hidden {
+    max-width: 80%;
+    padding-right: 20px;
+  }
+
+
+
 }

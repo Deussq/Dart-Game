@@ -50,7 +50,7 @@
                 <button class="btn-bull no-hover">Bull</button>
                 <button class="btn-d no-hover">D</button>
                 <button class="btn-t no-hover">T</button>
-                <button class="btn-cancel no-hover">Cancel</button>
+                <button class="btn-cancel no-hover">Undo</button>
 
 
 
@@ -65,7 +65,18 @@
 
 
 
-
+<div id="end-game-modal" class="hidden">
+  <div class="rules-content">
+    <h2>Game Over!</h2>
+    <div id="final-standings">
+      <!-- Сюда будем рендерить список игроков и их места -->
+    </div>
+    <div class="end-game-buttons" style="margin-top: 20px;">
+      <button id="play-again">Play Again</button>
+      <button id="return-menu">Return to Menu</button>
+    </div>
+  </div>
+</div>
 
 
 
