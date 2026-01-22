@@ -12,18 +12,26 @@
 
     <div class="main-container">
 
+        <nav class="navbar">
+
+            <div class="nav-title" id="nav-reset"><a href="index.html"><img src="img/darts-logo.png" alt=""></a></div>
+
+            <div class="nav-time" id="game-timer">
+                00:00
+            </div>
+        </nav>
 
         <div id="start-screen-game">
             <div class="players-column">
 
 
                 <div class="players-column" id="game-players">
-                    <!-- Здесь JS будет рендерить карточки игроков -->
-                  
+
+
                 </div>
 
             </div>
-                        <div class="dart-keyboard">
+            <div class="dart-keyboard">
                 <button>1</button>
                 <button>2</button>
                 <button>3</button>
@@ -46,7 +54,7 @@
                 <button>20</button>
 
 
-                  <button>0</button>
+                <button>0</button>
                 <button class="btn-bull no-hover">Bull</button>
                 <button class="btn-d no-hover">D</button>
                 <button class="btn-t no-hover">T</button>
@@ -59,27 +67,24 @@
             </div>
         </div>
 
-        <nav class="navbar">
-            <div class="nav-title"><a href="index.html"><img src="img/darts-logo.png" alt=""></a></div>
-        </nav>
 
 
 
-<div id="end-game-modal" class="hidden">
-  <div class="rules-content">
-    <h2>Game Over!</h2>
-    <div id="final-standings">
-      <!-- Сюда будем рендерить список игроков и их места -->
-    </div>
-    <div class="end-game-buttons" style="margin-top: 20px;">
-      <button id="play-again">Play Again</button>
-      <button id="return-menu">Return to Menu</button>
-    </div>
-  </div>
-</div>
+
+        <div id="end-game-modal" class="hidden">
+            <div class="rules-content">
+                <h2>Game Over!</h2>
+                <div id="final-standings">
 
 
 
+                </div>
+                <div class="end-game-buttons" style="margin-top: 20px;">
+                    <button id="play-again">Play Again</button>
+                    <button id="return-menu">Return to Menu</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 

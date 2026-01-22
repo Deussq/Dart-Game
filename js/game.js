@@ -1,18 +1,61 @@
-const players = JSON.parse(localStorage.getItem("players")) || [];
-const gamePlayersContainer = document.getElementById("game-players");
+let players = [];
 const gameMode = Number(localStorage.getItem("gameMode")) || 301;
+
+const savedGame = localStorage.getItem("dartGamePlayers");
+
+if (savedGame) {
+  players = JSON.parse(savedGame);
+} else {
+  players = JSON.parse(localStorage.getItem("players")) || [];
+
+  players.forEach(player => {
+    player.score = gameMode;
+    player.throws = [];
+  });
+}
+
+const gamePlayersContainer = document.getElementById("game-players");
 let turnStartScore = 0;
 let switchTimeout = null;
 
 
 
+const navResetBtn = document.getElementById("nav-reset");
+
+if (navResetBtn) {
+  navResetBtn.addEventListener("click", () => {
+
+    // 🔥 ПОЛНЫЙ СБРОС ИГРЫ
+    localStorage.removeItem("dartGamePlayers");
+    localStorage.removeItem("dartGameActivePlayer");
+    localStorage.removeItem("dartGameDartsThrown");
+    localStorage.removeItem("dartGameSeconds");
+
+    // (не обязательно, но можно)
+    localStorage.removeItem("players");
+    localStorage.removeItem("gameMode");
+
+    // ⏮ возврат в меню
+    window.location.href = "index.html";
+  });
+}
 
 
 
+function saveGame() {
+  localStorage.setItem("dartGamePlayers", JSON.stringify(players));
+  localStorage.setItem("dartGameActivePlayer", getActivePlayerIndex());
+  localStorage.setItem("dartGameDartsThrown", dartsThrown);
+  localStorage.setItem("dartGameSeconds", seconds);
+  localStorage.setItem("dartGameTurnStartScore", turnStartScore);
+}
 
-players.forEach(player => {
-  player.score = gameMode;
-});
+function getActivePlayerIndex() {
+  const activeCard = document.querySelector(".player-card-game.active");
+  return Array.from(gamePlayersContainer.children).indexOf(activeCard);
+}
+
+
 
 
 function renderGamePlayers() {
@@ -59,6 +102,52 @@ function renderGamePlayers() {
     gamePlayersContainer.appendChild(card);
   });
 }
+
+
+
+
+function restoreGame() {
+  const savedIndex = localStorage.getItem("dartGameActivePlayer");
+  const savedDarts = localStorage.getItem("dartGameDartsThrown");
+  const savedTurnStartScore = localStorage.getItem("dartGameTurnStartScore");
+
+  // Восстанавливаем счетчики
+  dartsThrown = savedDarts !== null ? Number(savedDarts) : 0;
+  turnStartScore = savedTurnStartScore !== null ? Number(savedTurnStartScore) : 0;
+
+  // Снимаем активность со всех карточек
+  document.querySelectorAll(".player-card-game").forEach(card => card.classList.remove("active"));
+
+  // Восстанавливаем активного игрока
+  let index = 0;
+  if (savedIndex !== null && gamePlayersContainer.children[savedIndex]) {
+    index = Number(savedIndex);
+  }
+  const activeCard = gamePlayersContainer.children[index];
+  activeCard.classList.add("active");
+
+  // Обновляем UI всех игроков
+  document.querySelectorAll(".player-card-game").forEach((card, i) => {
+    updateThrowUI(players[i], card);
+    card.querySelector(".player-score").textContent = players[i].score;
+  });
+
+  // 🔹 Если игрок уже сделал броски, запускаем таймер смены игрока
+  if (dartsThrown > 0 && dartsThrown < 3) {
+    // Запускаем таймаут для auto-switch, как будто игрок продолжает ход
+    switchTimeout = setTimeout(() => {
+      nextPlayer();
+      switchTimeout = null;
+    }, 1500);
+  }
+}
+
+
+
+
+
+
+
 
 
 
@@ -143,10 +232,10 @@ function addThrow(value) {
   updateThrowUI(player, activeCard);
 
 
- if (player.score === 0) {
-  showEndGameModal();
-  return;
-}
+  if (player.score === 0) {
+    showEndGameModal();
+    return;
+  }
 
 
 
@@ -156,6 +245,8 @@ function addThrow(value) {
       switchTimeout = null;
     }, 1500);
   }
+
+  saveGame()
 }
 
 
@@ -186,9 +277,8 @@ function updateThrowUI(player, card) {
   throws.forEach(span => span.textContent = "-");
 
 
+
   const startIndex = player.throws.length - dartsThrown;
-
-
   throws.forEach((span, i) => {
     if (i < dartsThrown) {
       span.textContent = player.throws[startIndex + i];
@@ -198,13 +288,36 @@ function updateThrowUI(player, card) {
 
 
   let sum = 0;
-  player.throws.slice(startIndex, startIndex + dartsThrown).forEach(throwValue => {
-    sum += throwValue;
+  player.throws.slice(startIndex, startIndex + dartsThrown).forEach(val => {
+    sum += val;
   });
 
+  card.querySelector(".throw-sum").textContent = sum;
 
-  card.querySelector(".throw-sum").textContent = sum || 0;
+
+
+  card.querySelector(".player-darts").textContent = 
+  "🎯 " + player.throws.length;
+
+
+
+  let totalPoints = 0;
+
+  player.throws.forEach(val => {
+    totalPoints += val;
+  });
+
+  let average;
+
+if (player.throws.length > 0) {
+  average = (totalPoints / player.throws.length).toFixed(1);
+} else {
+  average = 0;
 }
+
+  card.querySelector(".player-average").textContent = "Ø " + average;
+}
+
 
 
 
@@ -240,17 +353,9 @@ function nextPlayer() {
 
 
 function prevPlayer() {
-  const cards = gamePlayersContainer.children;
-  let currentIndex = [...cards].findIndex(card =>
-    card.classList.contains("active")
-  );
-  cards[currentIndex].classList.remove("active");
-
-  const prevIndex = (currentIndex - 1 + cards.length) % cards.length;
-
-  cards[prevIndex].classList.add("active");
-  dartsThrown = 3;
+  
 }
+
 
 
 
@@ -284,14 +389,31 @@ function undoLastThrow() {
 
   activeCard.querySelector(".player-score").textContent = player.score;
   updateThrowUI(player, activeCard);
+  saveGame()
 }
 
-document.getElementById("play-again").addEventListener("click", () => {
-  location.reload(); // просто перезагружаем страницу для новой игры
-});
 
+
+
+document.getElementById("play-again").addEventListener("click", () => {
+  // очищаем сохранённую игру
+  localStorage.removeItem("dartGamePlayers");
+  localStorage.removeItem("dartGameActivePlayer");
+  localStorage.removeItem("dartGameDartsThrown");
+  localStorage.removeItem("dartGameSeconds");
+
+  // перезапуск страницы или возврат в меню
+  location.reload();
+});
 document.getElementById("return-menu").addEventListener("click", () => {
-  window.location.href = "index.html"; // возвращаемся в меню
+
+  // ❗ полностью сбрасываем игру
+  localStorage.removeItem("dartGamePlayers");
+  localStorage.removeItem("dartGameActivePlayer");
+  localStorage.removeItem("dartGameDartsThrown");
+  localStorage.removeItem("dartGameSeconds");
+
+
 });
 
 
@@ -300,10 +422,26 @@ function showEndGameModal() {
   const modal = document.getElementById("end-game-modal");
   const standings = document.getElementById("final-standings");
 
-  // Сортируем игроков по очкам (меньше = лучше)
-  const sortedPlayers = [...players].sort((a,b) => a.score - b.score);
 
-  standings.innerHTML = ""; // чистим
+  const sortedPlayers = [];
+
+  players.forEach(player => {
+    sortedPlayers.push(player);
+  });
+
+
+  sortedPlayers.sort(function (a, b) {
+    if (a.score > b.score) {
+      return 1;
+    } else if (a.score < b.score) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+
+  standings.innerHTML = "";
   sortedPlayers.forEach((player, index) => {
     const div = document.createElement("div");
     div.textContent = `${index + 1}. ${player.name} — ${player.score} pts`;
@@ -315,11 +453,26 @@ function showEndGameModal() {
 
 
 
+let seconds = 0;
+function startTimer() {
+  setInterval(function () {
+    seconds++;
+
+    let minutes = Math.floor(seconds / 60);
+    let sec = seconds % 60;
+
+    if (sec < 10) {
+      sec = "0" + sec;
+    }
+
+    document.getElementById("game-timer").textContent =
+      minutes + ":" + sec;
+  }, 1000);
+}
 
 
-
+startTimer();
 renderGamePlayers();
-
-
+restoreGame();
 
 

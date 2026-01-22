@@ -11,7 +11,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  /* вертикальная колонка */
   background-color: var(--background-color);
   color: var(--main-color);
   font-family: 'Segoe UI', sans-serif;
@@ -21,12 +20,9 @@ body {
 
 .main-container {
   flex: 1;
-  /* занимает всё свободное место */
   display: flex;
   justify-content: center;
-  /* по горизонтали */
   align-items: center;
-  /* по вертикали */
 }
 
 
@@ -40,25 +36,34 @@ body {
   border-bottom: 1px solid #3a3a55;
   padding: 14px 20px;
   display: flex;
-  /* ← ВАЖНО */
   align-items: center;
-  /* ← по вертикали */
-  justify-content: flex-start;
-  /* ← влево */
-  z-index: 1000;
+  justify-content: space-between;
+}
+
+.nav-title {
+  z-index: 2;
 }
 
 .nav-title img {
   width: 60px;
   transition:
     transform 0.3s ease;
-  /* ← плавность */
   cursor: pointer;
 }
 
 .nav-title img:hover {
   transform: scale(1.15);
 }
+
+.nav-time {
+position: absolute;
+left: 50%;
+font-size: 30px;
+font-weight: bold;
+transform: translateX(-50%);
+}
+
+
 
 
 
@@ -111,7 +116,6 @@ header h1 {
 
 .mode-label input {
   display: none;
-  /* скрываем стандартные радио */
 }
 
 .mode-label span {
@@ -128,14 +132,14 @@ header h1 {
   width: 65px;
 }
 
-/* hover эффект */
+
 .mode-label span:hover {
   background-color: #5746b8;
   border-color: #7b6fe6;
   transform: scale(1.05);
 }
 
-/* выбранный режим */
+
 .mode-label input:checked+span {
   background-color: var(--main-color-button);
   color: var(--main-color);
@@ -379,17 +383,13 @@ button,
 
 #start-screen-game {
   width: 90%;
-  /* адаптивно */
   max-width: 700px;
-  /* ограничение по ширине */
   margin: 50px auto;
-  /* центр по горизонтали, отступ сверху */
   padding: 40px 20px;
   margin-top: 130px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* расстояние между секциями */
   background-color: #2a2a40;
   border-radius: 12px;
   box-sizing: border-box;
@@ -407,7 +407,7 @@ button,
   padding-right: 5px;
 }
 
-/* Стили для скролла (красиво) */
+
 .players-column::-webkit-scrollbar {
   width: 6px;
 }
@@ -674,7 +674,6 @@ button,
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  /* если много бросков — перенос на следующую строку */
 }
 
 .throw {
