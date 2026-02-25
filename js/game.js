@@ -25,17 +25,13 @@ const navResetBtn = document.getElementById("nav-reset");
 if (navResetBtn) {
   navResetBtn.addEventListener("click", () => {
 
-    // 🔥 ПОЛНЫЙ СБРОС ИГРЫ
     localStorage.removeItem("dartGamePlayers");
     localStorage.removeItem("dartGameActivePlayer");
     localStorage.removeItem("dartGameDartsThrown");
     localStorage.removeItem("dartGameSeconds");
 
-    // (не обязательно, но можно)
-    localStorage.removeItem("players");
-    localStorage.removeItem("gameMode");
 
-    // ⏮ возврат в меню
+
     window.location.href = "index.html";
   });
 }
@@ -107,39 +103,31 @@ function renderGamePlayers() {
 
 
 function restoreGame() {
+
   const savedIndex = localStorage.getItem("dartGameActivePlayer");
   const savedDarts = localStorage.getItem("dartGameDartsThrown");
   const savedTurnStartScore = localStorage.getItem("dartGameTurnStartScore");
 
-  // Восстанавливаем счетчики
   dartsThrown = savedDarts !== null ? Number(savedDarts) : 0;
   turnStartScore = savedTurnStartScore !== null ? Number(savedTurnStartScore) : 0;
 
-  // Снимаем активность со всех карточек
-  document.querySelectorAll(".player-card-game").forEach(card => card.classList.remove("active"));
+  let activeIndex = 0;
 
-  // Восстанавливаем активного игрока
-  let index = 0;
   if (savedIndex !== null && gamePlayersContainer.children[savedIndex]) {
-    index = Number(savedIndex);
+    activeIndex = Number(savedIndex);
   }
-  const activeCard = gamePlayersContainer.children[index];
-  activeCard.classList.add("active");
 
-  // Обновляем UI всех игроков
   document.querySelectorAll(".player-card-game").forEach((card, i) => {
+
+    card.classList.remove("active");
+
+    if (i === activeIndex) {
+      card.classList.add("active");
+    }
+
     updateThrowUI(players[i], card);
     card.querySelector(".player-score").textContent = players[i].score;
   });
-
-  // 🔹 Если игрок уже сделал броски, запускаем таймер смены игрока
-  if (dartsThrown > 0 && dartsThrown < 3) {
-    // Запускаем таймаут для auto-switch, как будто игрок продолжает ход
-    switchTimeout = setTimeout(() => {
-      nextPlayer();
-      switchTimeout = null;
-    }, 1500);
-  }
 }
 
 
@@ -271,53 +259,44 @@ function resetThrow() {
 
 
 function updateThrowUI(player, card) {
-  const throws = card.querySelectorAll(".throw");
+  const throwsSpans = card.querySelectorAll(".throw");
+  throwsSpans.forEach(span => span.textContent = "-");
 
+  if (!player.throws || player.throws.length === 0) {
+    card.querySelector(".throw-sum").textContent = 0;
+    card.querySelector(".player-darts").textContent = "🎯 0";
+    card.querySelector(".player-average").textContent = "Ø 0";
+    return;
+  }
 
-  throws.forEach(span => span.textContent = "-");
+  const isActive = card.classList.contains("active");
 
+  let throwsToShow = [];
 
-
-  const startIndex = player.throws.length - dartsThrown;
-  throws.forEach((span, i) => {
-    if (i < dartsThrown) {
-      span.textContent = player.throws[startIndex + i];
+  if (isActive) {
+    if (dartsThrown > 0) {
+      throwsToShow = player.throws.slice(-dartsThrown);
+    } else {
+      throwsToShow = [];
     }
+  } else {
+    throwsToShow = player.throws.slice(-3);
+  }
+
+  throwsToShow.forEach((val, i) => {
+    throwsSpans[i].textContent = val;
   });
 
-
-
-  let sum = 0;
-  player.throws.slice(startIndex, startIndex + dartsThrown).forEach(val => {
-    sum += val;
-  });
-
+  const sum = throwsToShow.reduce((a, b) => a + b, 0);
   card.querySelector(".throw-sum").textContent = sum;
 
+  card.querySelector(".player-darts").textContent =
+    "🎯 " + player.throws.length;
 
-
-  card.querySelector(".player-darts").textContent = 
-  "🎯 " + player.throws.length;
-
-
-
-  let totalPoints = 0;
-
-  player.throws.forEach(val => {
-    totalPoints += val;
-  });
-
-  let average;
-
-if (player.throws.length > 0) {
-  average = (totalPoints / player.throws.length).toFixed(1);
-} else {
-  average = 0;
-}
-
+  const totalPoints = player.throws.reduce((a, b) => a + b, 0);
+  const average = (totalPoints / player.throws.length).toFixed(1);
   card.querySelector(".player-average").textContent = "Ø " + average;
 }
-
 
 
 
@@ -347,17 +326,8 @@ function nextPlayer() {
   const throws = nextCard.querySelectorAll(".throw");
   throws.forEach(span => span.textContent = "-");
   nextCard.querySelector(".throw-sum").textContent = 0;
+  saveGame();
 }
-
-
-
-
-function prevPlayer() {
-  
-}
-
-
-
 
 
 
@@ -396,18 +366,16 @@ function undoLastThrow() {
 
 
 document.getElementById("play-again").addEventListener("click", () => {
-  // очищаем сохранённую игру
+
   localStorage.removeItem("dartGamePlayers");
   localStorage.removeItem("dartGameActivePlayer");
   localStorage.removeItem("dartGameDartsThrown");
   localStorage.removeItem("dartGameSeconds");
 
-  // перезапуск страницы или возврат в меню
   location.reload();
 });
 document.getElementById("return-menu").addEventListener("click", () => {
 
-  // ❗ полностью сбрасываем игру
   localStorage.removeItem("dartGamePlayers");
   localStorage.removeItem("dartGameActivePlayer");
   localStorage.removeItem("dartGameDartsThrown");
@@ -454,9 +422,17 @@ function showEndGameModal() {
 
 
 let seconds = 0;
+
+const savedSeconds = localStorage.getItem("dartGameSeconds");
+if (savedSeconds !== null) {
+  seconds = Number(savedSeconds);
+}
+
 function startTimer() {
   setInterval(function () {
     seconds++;
+
+    localStorage.setItem("dartGameSeconds", seconds);
 
     let minutes = Math.floor(seconds / 60);
     let sec = seconds % 60;
@@ -470,9 +446,6 @@ function startTimer() {
   }, 1000);
 }
 
-
 startTimer();
 renderGamePlayers();
 restoreGame();
-
-
